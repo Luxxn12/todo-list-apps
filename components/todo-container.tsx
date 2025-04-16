@@ -1,44 +1,56 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { DndProvider } from "react-dnd"
-import { HTML5Backend } from "react-dnd-html5-backend"
-import { TouchBackend } from "react-dnd-touch-backend"
-import { useMediaQuery } from "@/hooks/use-media-query"
-import { fetchTasks, setFilterStatus, setSearchQuery, setSelectedCategory } from "@/lib/actions/taskActions"
-import type { RootState } from "@/lib/store"
-import TaskList from "@/components/task-list"
-import AddTaskForm from "@/components/add-task-form"
-import TaskHeader from "@/components/task-header"
-import TaskFilter from "@/components/task-filter"
-import LoadingSpinner from "@/components/ui/loading-spinner"
-import { motion } from "framer-motion"
+import AddTaskForm from "@/components/add-task-form";
+import TaskFilter from "@/components/task-filter";
+import TaskHeader from "@/components/task-header";
+import TaskList from "@/components/task-list";
+import LoadingSpinner from "@/components/ui/loading-spinner";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import {
+  fetchTasks,
+  setFilterStatus,
+  setSearchQuery,
+  setSelectedCategory,
+} from "@/lib/actions/taskActions";
+import type { RootState } from "@/lib/store";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function TodoContainer() {
-  const dispatch = useDispatch()
-  const { tasks, filteredTasks, categories, isLoading, filterStatus, searchQuery, selectedCategory, isAddingTask } =
-    useSelector((state: RootState) => state.tasks)
+  const dispatch = useDispatch();
+  const {
+    tasks,
+    filteredTasks,
+    categories,
+    isLoading,
+    filterStatus,
+    searchQuery,
+    selectedCategory,
+    isAddingTask,
+  } = useSelector((state: RootState) => state.tasks);
 
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const dndBackend = isMobile ? TouchBackend : HTML5Backend
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const dndBackend = isMobile ? TouchBackend : HTML5Backend;
 
-  // Fetch tasks on component mount
   useEffect(() => {
-    dispatch(fetchTasks())
-  }, [dispatch])
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   const handleFilterStatusChange = (status: "all" | "completed" | "active") => {
-    dispatch(setFilterStatus(status))
-  }
+    dispatch(setFilterStatus(status));
+  };
 
   const handleSearchQueryChange = (query: string) => {
-    dispatch(setSearchQuery(query))
-  }
+    dispatch(setSearchQuery(query));
+  };
 
   const handleCategoryChange = (categoryId: string | null) => {
-    dispatch(setSelectedCategory(categoryId))
-  }
+    dispatch(setSelectedCategory(categoryId));
+  };
 
   return (
     <motion.div
@@ -48,10 +60,17 @@ export default function TodoContainer() {
       className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100"
     >
       {isAddingTask ? (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="p-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="p-6"
+        >
           <div className="flex items-center mb-6">
             <button
-              onClick={() => dispatch({ type: "SET_ADDING_TASK", payload: false })}
+              onClick={() =>
+                dispatch({ type: "SET_ADDING_TASK", payload: false })
+              }
               className="mr-3 flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
               aria-label="Back"
             >
@@ -75,7 +94,11 @@ export default function TodoContainer() {
         </motion.div>
       ) : (
         <>
-          <TaskHeader onAddClick={() => dispatch({ type: "SET_ADDING_TASK", payload: true })} />
+          <TaskHeader
+            onAddClick={() =>
+              dispatch({ type: "SET_ADDING_TASK", payload: true })
+            }
+          />
 
           <TaskFilter
             filterStatus={filterStatus}
@@ -99,5 +122,5 @@ export default function TodoContainer() {
         </>
       )}
     </motion.div>
-  )
+  );
 }

@@ -45,29 +45,36 @@
 
 :root {
   --radius: 0.625rem;
+  /* Base colors */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+
+  /* Blue theme for Todo app */
+  --primary: oklch(0.55 0.2 250); /* Blue */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.97 0.02 240);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.95 0.03 240);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.55 0.2 250);
+
+  /* Chart colors */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+
+  /* Sidebar colors */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -76,6 +83,17 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Todo app specific colors */
+  --todo-blue: oklch(0.55 0.2 250);
+  --todo-indigo: oklch(0.5 0.25 280);
+  --todo-green: oklch(0.65 0.2 150);
+  --todo-amber: oklch(0.75 0.2 80);
+  --todo-purple: oklch(0.6 0.25 300);
+  --todo-blue-50: oklch(0.95 0.03 240);
+  --todo-blue-100: oklch(0.9 0.05 240);
+  --todo-blue-500: oklch(0.55 0.2 250);
+  --todo-blue-600: oklch(0.5 0.25 260);
 }
 
 .dark {
@@ -85,7 +103,9 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+
+  /* Blue theme for Todo app - dark mode */
+  --primary: oklch(0.6 0.2 250); /* Brighter blue for dark mode */
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -96,12 +116,16 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.6 0.2 250);
+
+  /* Chart colors */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
+
+  /* Sidebar colors */
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -110,13 +134,149 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Todo app specific colors - dark mode */
+  --todo-blue: oklch(0.6 0.2 250);
+  --todo-indigo: oklch(0.55 0.25 280);
+  --todo-green: oklch(0.7 0.2 150);
+  --todo-amber: oklch(0.77 0.2 80);
+  --todo-purple: oklch(0.65 0.25 300);
+  --todo-blue-50: oklch(0.25 0.05 240);
+  --todo-blue-100: oklch(0.3 0.1 240);
+  --todo-blue-500: oklch(0.6 0.2 250);
+  --todo-blue-600: oklch(0.55 0.25 260);
 }
+
+@tailwind utilities;
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom styles for the Todo app */
+.task-item-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.task-item-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.task-item-exit {
+  opacity: 1;
+}
+.task-item-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Custom checkbox styles */
+.checkbox-container {
+  position: relative;
+  display: inline-block;
+}
+
+.checkbox-container input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-container .checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
+  background-color: var(--todo-blue);
+  border-color: var(--todo-blue);
+}
+
+.checkbox-container .checkbox-custom svg {
+  visibility: hidden;
+  color: white;
+  stroke-width: 3;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom svg {
+  visibility: visible;
+}
+
+/* Custom gradient backgrounds */
+.bg-gradient-blue {
+  background: linear-gradient(135deg, var(--todo-blue), var(--todo-indigo));
+}
+
+.bg-gradient-green {
+  background: linear-gradient(135deg, var(--todo-green), oklch(0.6 0.15 160));
+}
+
+.bg-gradient-amber {
+  background: linear-gradient(135deg, var(--todo-amber), oklch(0.7 0.18 70));
+}
+
+.bg-gradient-purple {
+  background: linear-gradient(135deg, var(--todo-purple), oklch(0.55 0.25 290));
+}
+
+/* Category colors */
+.category-pribadi {
+  background-color: var(--todo-green);
+  color: oklch(1 0 0);
+}
+
+.category-pekerjaan {
+  background-color: var(--todo-amber);
+  color: oklch(0.2 0 0);
+}
+
+.category-belanja {
+  background-color: var(--todo-purple);
+  color: oklch(1 0 0);
+}
+
+/* Custom animations */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ring);
 }

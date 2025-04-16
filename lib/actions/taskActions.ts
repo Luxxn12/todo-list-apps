@@ -1,6 +1,5 @@
 import type { Task } from "@/lib/types";
 
-// Action Types
 export const FETCH_TASKS = "FETCH_TASKS";
 export const FETCH_TASKS_SUCCESS = "FETCH_TASKS_SUCCESS";
 export const FETCH_TASKS_FAILURE = "FETCH_TASKS_FAILURE";
@@ -28,7 +27,6 @@ export const SET_SEARCH_QUERY = "SET_SEARCH_QUERY";
 export const SET_SELECTED_CATEGORY = "SET_SELECTED_CATEGORY";
 export const SET_ADDING_TASK = "SET_ADDING_TASK";
 
-// Action Creators
 export const fetchTasks = () => ({
   type: FETCH_TASKS,
 });

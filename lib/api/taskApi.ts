@@ -1,16 +1,14 @@
 import type { Task } from "@/lib/types";
 import axios from "axios";
 
-// Using JSONPlaceholder as a public REST API for todos
 const API_URL = "https://jsonplaceholder.typicode.com/todos";
 
-// Helper to convert API response to our Task format
 const convertApiTaskToTask = (apiTask: any): Task => ({
   id: apiTask.id.toString(),
   title: apiTask.title,
   description: "",
   completed: apiTask.completed,
-  categoryId: Math.floor(Math.random() * 3 + 1).toString(), // Random category for demo
+  categoryId: Math.floor(Math.random() * 3 + 1).toString(),
   userId: apiTask.userId,
   createdAt: new Date().toISOString(),
 });
@@ -18,7 +16,6 @@ const convertApiTaskToTask = (apiTask: any): Task => ({
 export const fetchTasksApi = async (): Promise<Task[]> => {
   try {
     const response = await axios.get(API_URL);
-    // Limit to 10 tasks for demo purposes
     return response.data.slice(0, 10).map(convertApiTaskToTask);
   } catch (error) {
     console.error("Error fetching tasks:", error);
@@ -33,7 +30,7 @@ export const addTaskApi = async (
     const response = await axios.post(API_URL, {
       title: task.title,
       completed: task.completed,
-      userId: 1, // Default user ID
+      userId: 1,
     });
 
     return {

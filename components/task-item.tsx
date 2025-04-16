@@ -47,7 +47,6 @@ export default function TaskItem({ task, index, onMove }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(task.title);
 
-  // Get category color
   const getCategoryColor = (categoryId: string | null) => {
     if (!categoryId) return "bg-gray-100 text-gray-600";
 
@@ -63,7 +62,6 @@ export default function TaskItem({ task, index, onMove }: TaskItemProps) {
     }
   };
 
-  // Get category name
   const getCategoryName = (categoryId: string | null) => {
     if (!categoryId) return null;
 
@@ -79,7 +77,6 @@ export default function TaskItem({ task, index, onMove }: TaskItemProps) {
     }
   };
 
-  // Drag and drop functionality
   const [{ isDragging }, drag] = useDrag({
     type: "TASK",
     item: { index, id: task.id },
@@ -98,50 +95,33 @@ export default function TaskItem({ task, index, onMove }: TaskItemProps) {
       const dragIndex = item.index;
       const hoverIndex = index;
 
-      // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return;
       }
 
-      // Determine rectangle on screen
       const hoverBoundingRect = ref.current.getBoundingClientRect();
 
-      // Get vertical middle
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-      // Determine mouse position
       const clientOffset = monitor.getClientOffset();
 
-      // Get pixels to the top
       const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-
-      // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
 
-      // Dragging upwards
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
 
-      // Time to actually perform the action
       onMove(dragIndex, hoverIndex);
 
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
       item.index = hoverIndex;
     },
   });
 
-  // Initialize drag and drop refs
   drag(drop(ref));
 
   const handleToggleComplete = () => {
@@ -179,7 +159,7 @@ export default function TaskItem({ task, index, onMove }: TaskItemProps) {
       transition={{ duration: 0.2 }}
       ref={ref}
       className={cn(
-        "flex items-center p-5 hover:bg-blue-50 transition-colors",
+        "relative flex items-center p-5 hover:bg-blue-50 transition-colors",
         isDragging && "opacity-50 bg-blue-50",
         task.completed && "bg-gray-50"
       )}
@@ -187,7 +167,7 @@ export default function TaskItem({ task, index, onMove }: TaskItemProps) {
     >
       {/* Loading overlay */}
       {(isUpdating || isDeleting) && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70 z-10 backdrop-blur-[1px]">
+        <div className="absolute inset-0 flex items-center justify-center bg-white/40 z-10 backdrop-blur-[1px]">
           <div className="animate-spin rounded-full h-6 w-6 border-2 border-t-transparent border-blue-600"></div>
         </div>
       )}
@@ -199,7 +179,7 @@ export default function TaskItem({ task, index, onMove }: TaskItemProps) {
         className={cn(
           "mr-4 h-5 w-5 rounded-full border-2",
           task.completed
-            ? "border-blue-500 bg-blueborder-blue-500 text-white"
+            ? "border-blue-400 bg-blue-400 text-white"
             : "border-gray-300 text-green-500"
         )}
         disabled={isUpdating || isDeleting}

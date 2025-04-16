@@ -36,6 +36,7 @@ export default function AddTaskForm({ categories }: AddTaskFormProps) {
     e.preventDefault();
 
     if (!title.trim()) return;
+    if (!categoryId) return;
 
     dispatch(
       addTask({
@@ -45,8 +46,6 @@ export default function AddTaskForm({ categories }: AddTaskFormProps) {
         categoryId: categoryId || null,
       })
     );
-
-    // Form will be reset after successful submission via saga
   };
 
   const handleCancel = () => {
@@ -81,7 +80,7 @@ export default function AddTaskForm({ categories }: AddTaskFormProps) {
           htmlFor="title"
           className="block text-sm font-medium mb-1.5 text-gray-700"
         >
-          Name
+          Name <span className="text-red-500">*</span>
         </label>
         <Input
           id="title"
@@ -115,7 +114,7 @@ export default function AddTaskForm({ categories }: AddTaskFormProps) {
           htmlFor="category"
           className="block text-sm font-medium mb-1.5 text-gray-700"
         >
-          Category
+          Category <span className="text-red-500">*</span>
         </label>
         <Select value={categoryId} onValueChange={setCategoryId}>
           <SelectTrigger className="border-gray-200 focus:border-blue-500 focus:ring-blue-500">
@@ -146,7 +145,7 @@ export default function AddTaskForm({ categories }: AddTaskFormProps) {
         </Button>
         <Button
           type="submit"
-          disabled={!title.trim() || isSubmitting}
+          disabled={!title.trim() || !categoryId || isSubmitting}
           className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
         >
           {isSubmitting ? (

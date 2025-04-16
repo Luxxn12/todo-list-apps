@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Modern Todo List Application
 
-## Getting Started
+A sleek, responsive Todo List application built with Next.js and React. This application features a modern UI with smooth animations, drag-and-drop functionality, filtering options, and real-time updates.
 
-First, run the development server:
+![Todo List App](./public/one.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ✅ **Task Management**: Create, update, delete, and mark tasks as complete
+- 🔄 **Drag and Drop**: Reorder tasks with intuitive drag-and-drop functionality
+- 🔍 **Advanced Filtering**: Filter tasks by status (all, active, completed) and categories
+- 🔎 **Search**: Search through tasks with real-time results
+- 📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
+- 🎨 **Modern UI**: Clean, intuitive interface with smooth animations
+- 📊 **Categories**: Organize tasks with customizable categories
+- ⚡ **Real-time Updates**: Instant UI updates with optimistic rendering
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**:
+  - [Next.js](https://nextjs.org/) - React framework
+  - [React](https://reactjs.org/) - UI library
+  - [Redux](https://redux.js.org/) - State management
+  - [Redux-Saga](https://redux-saga.js.org/) - Side effect management
+  - [React DnD](https://react-dnd.github.io/react-dnd/) - Drag and drop functionality
+  - [Framer Motion](https://www.framer.com/motion/) - Animations
+  - [Tailwind CSS](https://tailwindcss.com/) - Styling
+  - [shadcn/ui](https://ui.shadcn.com/) - UI components
 
-## Learn More
+- **API Integration**:
+  - [Axios](https://axios-http.com/) - HTTP client
+  - [JSONPlaceholder](https://jsonplaceholder.typicode.com/) - Mock API
 
-To learn more about Next.js, take a look at the following resources:
+## Acknowledgments
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [JSONPlaceholder](https://jsonplaceholder.typicode.com/) for providing a fake REST API
+- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Screenshot To Do
+![Todo List App](./public/1.png)
+![Todo List App](./public/2.png)
+![Todo List App](./public/3.png)
+![Todo List App](./public/4.png)
+![Todo List App](./public/5.png)
+![Todo List App](./public/6.png)
+![Todo List App](./public/7.png)
+![Todo List App](./public/8.png)
+![Todo List App](./public/9.png)
+![Todo List App](./public/10.png)
+![Todo List App](./public/11.png)
+![Todo List App](./public/12.png)

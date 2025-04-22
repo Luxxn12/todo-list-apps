@@ -23,7 +23,6 @@ import { useDispatch, useSelector } from "react-redux";
 export default function TodoContainer() {
   const dispatch = useDispatch();
   const {
-    tasks,
     filteredTasks,
     categories,
     isLoading,

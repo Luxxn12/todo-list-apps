@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as actions from "@/lib/actions/taskActions";
 import type { TaskState } from "@/lib/types";
 

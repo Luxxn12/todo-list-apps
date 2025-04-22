@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as actions from "@/lib/actions/taskActions";
 import * as api from "@/lib/api/taskApi";
 import type { RootState } from "@/lib/store";
@@ -8,7 +9,7 @@ function* fetchTasksSaga() {
   try {
     const tasks: Task[] = yield call(api.fetchTasksApi);
     yield put(actions.fetchTasksSuccess(tasks));
-  } catch (error) {
+  } catch (error: any) {
     yield put(actions.fetchTasksFailure(error.message));
   }
 }
@@ -17,7 +18,7 @@ function* addTaskSaga(action: ReturnType<typeof actions.addTask>) {
   try {
     const task: Task = yield call(api.addTaskApi, action.payload);
     yield put(actions.addTaskSuccess(task));
-  } catch (error) {
+  } catch (error : any) {
     yield put(actions.addTaskFailure(error.message));
   }
 }
@@ -41,7 +42,7 @@ function* toggleTaskCompletionSaga(
     );
 
     yield put(actions.toggleTaskCompletionSuccess(result.id, result.completed));
-  } catch (error) {
+  } catch (error : any)  {
     yield put(
       actions.toggleTaskCompletionFailure(error.message, action.payload)
     );
@@ -52,7 +53,7 @@ function* updateTaskSaga(action: ReturnType<typeof actions.updateTask>) {
   try {
     const updatedTask: Task = yield call(api.updateTaskApi, action.payload);
     yield put(actions.updateTaskSuccess(updatedTask));
-  } catch (error) {
+  } catch (error: any) {
     yield put(actions.updateTaskFailure(error.message, action.payload.id));
   }
 }
@@ -61,7 +62,7 @@ function* deleteTaskSaga(action: ReturnType<typeof actions.deleteTask>) {
   try {
     const id: string = yield call(api.deleteTaskApi, action.payload);
     yield put(actions.deleteTaskSuccess(id));
-  } catch (error) {
+  } catch (error: any) {
     yield put(actions.deleteTaskFailure(error.message, action.payload));
   }
 }

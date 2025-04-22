@@ -3,6 +3,7 @@ import axios from "axios";
 
 const API_URL = "https://jsonplaceholder.typicode.com/todos";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const convertApiTaskToTask = (apiTask: any): Task => ({
   id: apiTask.id.toString(),
   title: apiTask.title,
